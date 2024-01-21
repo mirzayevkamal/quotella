@@ -1,5 +1,6 @@
-// db.js
+import * as FileSystem from "expo-file-system";
 import * as SQLite from "expo-sqlite";
+import { Asset } from "expo-asset";
 
 const db = SQLite.openDatabase("quotes.db");
 
@@ -36,4 +37,20 @@ const insertDataFromJson = (jsonData) => {
   });
 };
 
-export { createTable, insertDataFromJson };
+async function openDatabaseLocal(pathToDatabaseFile) {
+  if (
+    !(await FileSystem.getInfoAsync(FileSystem.documentDirectory + "SQLite"))
+      .exists
+  ) {
+    await FileSystem.makeDirectoryAsync(
+      FileSystem.documentDirectory + "SQLite"
+    );
+  }
+  await FileSystem.downloadAsync(
+    pathToDatabaseFile,
+    FileSystem.documentDirectory + "SQLite/qoutes.db"
+  );
+  return SQLite.openDatabase("quotes.db");
+}
+
+export { createTable, insertDataFromJson, openDatabaseLocal };
