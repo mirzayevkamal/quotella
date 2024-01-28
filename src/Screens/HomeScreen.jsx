@@ -14,14 +14,15 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     const getDbData = async () => {
       const dibi = await openDatabaseLocal(
-        "https://github.com/mirzayevkamal/quotella/raw/main/assets/quotes/quote-2.db",
+        "https://github.com/mirzayevkamal/quotella/raw/main/assets/quotes/quote-1.db",
         "quotes.db"
       );
       await dibi.transaction((tx) => {
         tx.executeSql(
-          "select * from quotes ORDER BY ID limit 100",
+          "select * from quote_2 ORDER BY RANDOM() limit 100",
           [],
           (_, { rows: { _array } }) => {
+            console.log('Arraye', _array[0])
             dispatch(setAllQuotes(_array));
           }
         );
