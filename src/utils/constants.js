@@ -1,0 +1,86 @@
+export const Categories = [
+  {
+    id: 1,
+    image: require("../../assets/categories/1.png"),
+    name: "Nature",
+    color: "#D81818",
+  },
+  {
+    id: 2,
+    image: require("../../assets/categories/2.png"),
+    name: "Motivation",
+    color: "#5271FF",
+  },
+  {
+    id: 3,
+    image: require("../../assets/categories/3.png"),
+    name: "Love",
+    color: "red",
+  },
+  {
+    id: 4,
+    image: require("../../assets/categories/4.png"),
+    name: "Friendship",
+    color: "blue",
+  },
+  {
+    id: 5,
+    image: require("../../assets/categories/5.png"),
+    name: "Trust",
+    color: "#5E17EB",
+  },
+  {
+    id: 6,
+    image: require("../../assets/categories/6.png"),
+    name: "Success",
+    color: "#305E62",
+  },
+  {
+    id: 7,
+    image: require("../../assets/categories/7.png"),
+    name: "Inspiration",
+    color: "#305E62",
+  },
+  {
+    id: 8,
+    image: require("../../assets/categories/8.png"),
+    name: "Positive",
+    color: "#305E62",
+  },
+  {
+    id: 9,
+    image: require("../../assets/categories/9.png"),
+    name: "Happiness",
+    color: "#305E62",
+  },
+  {
+    id: 10,
+    image: require("../../assets/categories/10.png"),
+    name: "Time",
+    color: "#305E62",
+  },
+  {
+    id: 11,
+    image: require("../../assets/categories/11.png"),
+    name: "Alone",
+    color: "#305E62",
+  },
+  {
+    id: 12,
+    image: require("../../assets/categories/12.png"),
+    name: "Widsom",
+    color: "#305E62",
+  },
+  {
+    id: 13,
+    image: require("../../assets/categories/13.png"),
+    name: "Hate",
+    color: "#305E62",
+  },
+  {
+    id: 14,
+    image: require("../../assets/categories/14.png"),
+    name: "Strength",
+    color: "#305E62",
+  },
+];

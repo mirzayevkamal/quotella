@@ -1,19 +1,34 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 
-const QuoteText = ({ quote }) => {
+const QuoteText = ({ quote, author }) => {
   return (
-    <Text
-      style={{
-        textAlign: "center",
-        color: "#fff",
-        justifyContent: "center",
-        alignItems: "center",
-        fontSize: 25,
-        padding: 20,
-      }}
-    >
-      “{quote}”
-    </Text>
+    <View>
+      <Text
+        style={{
+          textAlign: "center",
+          color: "#fff",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: 27,
+          padding: 20,
+          fontWeight: "500",
+          lineHeight: 32,
+        }}
+      >
+        “{quote}”
+      </Text>
+      <Text
+        style={{
+          textAlign: "center",
+          color: "#fff",
+          fontSize: 17,
+          fontWeight: "500",
+          fontStyle: "italic",
+        }}
+      >
+        - {author}
+      </Text>
+    </View>
   );
 };
 
