@@ -19,6 +19,7 @@ const QuoteItem = ({ item, onPress }) => {
         <Text
           style={{
             color: "#fff",
+            fontFamily: "Cabin",
           }}
           visible
         >
@@ -32,9 +33,9 @@ const QuoteItem = ({ item, onPress }) => {
             paddingTop: 5,
             fontSize: 12,
             textAlign: "left",
+            fontFamily: "Cabin",
           }}
         >
-          {"- "}
           {by}
         </Text>
       </View>

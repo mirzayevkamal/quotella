@@ -33,7 +33,7 @@ export const MyTheme = {
     onTertiaryContainer: "rgba(49, 17, 29, 1)",
     outline: "rgba(121, 116, 126, 1)",
     outlineVariant: "rgba(202, 196, 208, 1)",
-    primary: "rgba(103, 80, 164, 1)",
+    primary: "#fff",
     primaryContainer: "rgba(234, 221, 255, 1)",
     scrim: "rgba(0, 0, 0, 1)",
     secondary: "rgba(98, 91, 113, 1)",

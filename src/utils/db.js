@@ -2,7 +2,7 @@ import * as FileSystem from "expo-file-system";
 import * as SQLite from "expo-sqlite";
 import { Asset } from "expo-asset";
 
-const db = SQLite.openDatabase("quotes.db");
+const db = SQLite.openDatabase("allquotes.db");
 
 const createTable = () => {
   db.transaction((tx) => {
@@ -37,16 +37,42 @@ const insertDataFromJson = (jsonData) => {
   });
 };
 
+const downloadFile = async (uri, destination) => {
+  const callback = (downloadProgress) => {
+    const progress =
+      downloadProgress.totalBytesWritten /
+      downloadProgress.totalBytesExpectedToWrite;
+    console.log(`Download Progress: ${progress * 100}%`);
+  };
+
+  try {
+    const downloadResumable = FileSystem.createDownloadResumable(
+      uri,
+      destination,
+      {},
+      callback
+    );
+
+    const { uri: localUri } = await downloadResumable.downloadAsync();
+
+    console.log("Download complete. Local URI: ", localUri);
+
+    // Your further processing logic here...
+  } catch (error) {
+    console.error("Error downloading file:", error);
+  }
+};
+
 async function openDatabaseLocal(pathToDatabaseFile, dbName) {
   if (
     !(await FileSystem.getInfoAsync(FileSystem.documentDirectory + "SQLite"))
       .exists
   ) {
-    console.log('Creating directory');
+    console.log("Creating directory");
     await FileSystem.makeDirectoryAsync(
       FileSystem.documentDirectory + "SQLite"
     );
-    console.log('Directory created successfully');
+    console.log("Directory created successfully");
   }
   if (
     !(
@@ -55,17 +81,22 @@ async function openDatabaseLocal(pathToDatabaseFile, dbName) {
       )
     ).exists
   ) {
-    console.log('Directory already exists');
+    console.log("Directory exists but need to download file");
 
-    await FileSystem.downloadAsync(
+    await downloadFile(
       pathToDatabaseFile,
       FileSystem.documentDirectory + `SQLite/${dbName}`
     );
-    console.log('Directory Success');
+
+    // await FileSystem.downloadAsync(
+    //   pathToDatabaseFile,
+    //   FileSystem.documentDirectory + `SQLite/${dbName}`
+    // );
+    console.log("Directory Success");
 
     return SQLite.openDatabase(dbName);
   } else {
-    console.log('Directory already exists');
+    console.log("Directory already exists");
     return SQLite.openDatabase(dbName);
   }
 }
@@ -109,7 +140,7 @@ const doesDatabaseExist = async (dbName) => {
 };
 
 const addQuoteToDbAsObject = async (data) => {
-  const resi = await doesDatabaseExist("liked_quotes");
+  const resi = await doesDatabaseExist("liked_quotes.db");
 
   if (!resi) {
     createANewDb("liked_quotes");
@@ -120,7 +151,7 @@ const addQuoteToDbAsObject = async (data) => {
 };
 
 const addToLikedQuotes = (data) => {
-  const likedQuotesDb = SQLite.openDatabase("liked_quotes");
+  const likedQuotesDb = SQLite.openDatabase("liked_quotes.db");
 
   likedQuotesDb.transaction((tx) => {
     tx.executeSql(
@@ -137,7 +168,7 @@ const addToLikedQuotes = (data) => {
 };
 
 const getLikedQuotes = () => {
-  const likedQuotesDb = SQLite.openDatabase("liked_quotes");
+  const likedQuotesDb = SQLite.openDatabase("liked_quotes.db");
 
   return new Promise((resolve) => {
     likedQuotesDb.transaction((tx) => {
@@ -145,6 +176,7 @@ const getLikedQuotes = () => {
         "SELECT * FROM liked_quotes",
         [],
         (_, { rows: { _array } }) => {
+          console.log("Lenting", _array.length);
           resolve(_array);
         },
         (error) => {
@@ -156,7 +188,7 @@ const getLikedQuotes = () => {
 };
 
 const removeLikedQuote = (quote) => {
-  const likedQuotesDb = SQLite.openDatabase("liked_quotes");
+  const likedQuotesDb = SQLite.openDatabase("liked_quotes.db");
 
   return new Promise((resolve) => {
     likedQuotesDb.transaction((tx) => {
@@ -183,6 +215,26 @@ const removeLikedQuote = (quote) => {
   });
 };
 
+const getQuotesFromDb = async () => {
+  console.log("gettling quotes from db");
+  const dibi = await openDatabaseLocal(
+    "https://github.com/mirzayevkamal/quotella/raw/main/assets/quotes/allquotes.db",
+    "allquotes.db"
+  );
+
+  return new Promise((resolve) => {
+    dibi.transaction((tx) => {
+      tx.executeSql(
+        "select * from allquotes WHERE LENGTH(quote) < 350 ORDER BY RANDOM() limit 10",
+        [],
+        (_, { rows: { _array } }) => {
+          resolve(_array);
+        }
+      );
+    });
+  });
+};
+
 export {
   createTable,
   insertDataFromJson,
@@ -190,4 +242,5 @@ export {
   addQuoteToDbAsObject,
   getLikedQuotes,
   removeLikedQuote,
+  getQuotesFromDb,
 };

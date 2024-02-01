@@ -5,6 +5,10 @@ export const quotesSlice = createSlice({
   initialState: {
     allQuotes: [],
     likedQuotes: [],
+    selectedFonts: {
+      quote: "System",
+      author: "System",
+    },
   },
   reducers: {
     setAllQuotes: (state, action) => {
@@ -13,10 +17,15 @@ export const quotesSlice = createSlice({
     setLikedQuotes: (state, action) => {
       state.likedQuotes = action.payload.reverse();
     },
+    setSelectedFonts: (state, action) => {
+      console.log('payload', action.payload)
+      state.selectedFonts = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setAllQuotes, setLikedQuotes } = quotesSlice.actions;
+export const { setAllQuotes, setLikedQuotes, setSelectedFonts } =
+  quotesSlice.actions;
 
 export default quotesSlice.reducer;

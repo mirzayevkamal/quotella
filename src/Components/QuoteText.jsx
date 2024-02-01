@@ -1,6 +1,8 @@
 import { Text, View } from "react-native";
+import { useSelector } from "react-redux";
 
 const QuoteText = ({ quote, author }) => {
+  const selectedFonts = useSelector((state) => state.quotes.selectedFonts);
   return (
     <View>
       <Text
@@ -11,8 +13,8 @@ const QuoteText = ({ quote, author }) => {
           alignItems: "center",
           fontSize: 27,
           padding: 20,
-          fontWeight: "500",
           lineHeight: 32,
+          fontFamily: selectedFonts.quote,
         }}
       >
         “{quote}”
@@ -24,6 +26,7 @@ const QuoteText = ({ quote, author }) => {
           fontSize: 17,
           fontWeight: "500",
           fontStyle: "italic",
+          fontFamily: selectedFonts.author,
         }}
       >
         - {author}

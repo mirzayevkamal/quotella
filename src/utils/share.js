@@ -1,7 +1,8 @@
 import * as Sharing from "expo-sharing";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
-import { CameraRoll, Share } from "react-native";
+import { CameraRoll, Platform, Share } from "react-native";
+import * as FileSystem from "expo-file-system";
 
 export const openShareDialogAsync = async (ref, successCb, failCb) => {
   if (!(await Sharing.isAvailableAsync())) {
@@ -11,14 +12,15 @@ export const openShareDialogAsync = async (ref, successCb, failCb) => {
     const imageURI = await captureRef(ref, {
       result: "tmpfile",
       quality: 1,
-      format: "png",
+      format: "jpg",
     });
 
     const result = await Share.share({
-      message: "Share image from Quotella",
+      message: Platform.OS !== "ios" && "Share image from Quotella",
       url: imageURI,
     })
       .then((result) => {
+        console.log("rizalt", result);
         if (result.action === Share.sharedAction) {
           return {
             status: "shared",
@@ -39,24 +41,63 @@ export const openShareDialogAsync = async (ref, successCb, failCb) => {
   }
 };
 
-export const saveImage = async (ref, successCb, failCb) => {
+export const saveImage = async (ref) => {
   const imageURI = await captureRef(ref, {
     result: "tmpfile",
     quality: 1,
     format: "jpg",
-  });
+  })
+    .then((imageURI) => imageURI)
+    .catch((error) => {
+      console.log("image capture error", error);
+    });
 
-  try {
-    // Request device storage access permission
-    const { status } = await MediaLibrary.requestPermissionsAsync();
-    if (status === "granted") {
-      // Save image to media library
+  const { status } = await MediaLibrary.requestPermissionsAsync();
+
+  if (status === "granted") {
+    try {
       await MediaLibrary.saveToLibraryAsync(imageURI);
-      successCb();
-      console.log("Image successfully saved");
+      //Delete image from storage
+      await FileSystem.deleteAsync(imageURI)
+        .finally(() => {
+          console.log("Image successfully deleted");
+        })
+        .catch((error) => {
+          console.log("image delete error", error);
+        });
+      return true;
+    } catch {
+      return false;
     }
+  } else {
+    return false;
+  }
+
+  // try {
+  //   // Request device storage access permission
+  //   const { status } = await MediaLibrary.requestPermissionsAsync();
+  //   if (status === "granted") {
+  //     // Save image to media library
+  //     await MediaLibrary.saveToLibraryAsync(imageURI);
+  //     successCb();
+  //     console.log("Image successfully saved");
+  //   }
+  // } catch (error) {
+  //   console.log(error);
+  //   failCb();
+  // }
+};
+
+export const handleQuoteDownload = async () => {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    await saveImage(
+      quoteRef,
+      () => showSuccessSnackbar(),
+      () => showFailureSnackbar()
+    );
   } catch (error) {
-    console.log(error);
-    failCb();
+    console.error("Error during quote download:", error);
   }
 };

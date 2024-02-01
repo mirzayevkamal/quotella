@@ -15,6 +15,7 @@ const NoResult = () => {
           color: "#fff",
           fontSize: 30,
           opacity: 0.5,
+          fontFamily: "Cabin",
         }}
       >
         No quote found
