@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  FlatList,
-  Keyboard,
-  Pressable,
-  SafeAreaView,
-  View,
-} from "react-native";
+import { FlatList, Keyboard, SafeAreaView, View } from "react-native";
 import { IconButton, Searchbar } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as SQLite from "expo-sqlite";
@@ -16,7 +10,7 @@ import CategoryItem from "../Components/CategoryItem";
 import { Text } from "react-native-paper";
 import useDebounce from "../hooks/useDebounce";
 import BottomSheet from "@devvie/bottom-sheet";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import QuoteWrapper from "../Components/QuoteWrapper";
 
 const db = SQLite.openDatabase("allquotes.db");
@@ -27,22 +21,19 @@ const SearchScreen = () => {
   const [foundElements, setFoundElements] = React.useState([]);
   const [showNoQuoteFound, setShowNoQuoteFound] = React.useState(false);
   const [selectedItem, setSelectedItem] = React.useState(null);
+  const navigation = useNavigation();
 
-  const sheetRef = React.useRef(null);
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    if (!isFocused) {
-      sheetRef.current?.close();
-    }
-  }, [isFocused]);
-
+  const query = `
+  SELECT *
+  FROM allquotes
+  WHERE (tags LIKE '%' || ? || '%' OR by LIKE '%' || ? || '%') AND LENGTH(quote) < 300;
+`;
   const searchItems = () => {
     if (searchQuery.length) {
       db.transaction((tx) => {
         tx.executeSql(
-          "SELECT * FROM allquotes WHERE by LIKE ? OR tags LIKE ?",
-          [`%${searchQuery}%`, `%${searchQuery}%`],
+          query,
+          [searchQuery, searchQuery],
           (tx, results) => {
             const len = results.rows.length;
             if (len > 0) {
@@ -73,7 +64,7 @@ const SearchScreen = () => {
   }, [debouncedValue]);
 
   return (
-    <SafeAreaView style={{ flex: 1, paddingTop: insets.top }}>
+    <SafeAreaView style={{ flex: 1, paddingTop: insets.top, margin: 5 }}>
       <View style={{ padding: 5 }}>
         <Text
           variant="headlineLarge"
@@ -109,9 +100,7 @@ const SearchScreen = () => {
                 item={item}
                 onPress={() => {
                   setSelectedItem(item);
-                  setTimeout(() => {
-                    sheetRef.current?.open();
-                  }, 200);
+                  navigation.navigate("Quote", { item });
                 }}
               />
             )}
@@ -130,7 +119,7 @@ const SearchScreen = () => {
                 fontFamily: "Cabin",
               }}
             >
-              Popular categories
+              Popular #keywords
             </Text>
             <FlatList
               data={Categories}
@@ -171,7 +160,6 @@ const SearchScreen = () => {
             </View>
           )}
           height={"83%"}
-          ref={sheetRef}
           style={{ backgroundColor: "rgb(15, 15, 15)" }}
         >
           <View style={{ width: "100%", height: "100%", marginBottom: -50 }}>

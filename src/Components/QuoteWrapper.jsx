@@ -3,11 +3,14 @@ import { View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import CarouselScreen from "./Carousel";
+import { useRoute } from "@react-navigation/native";
 
-const QuoteWrapper = ({ allQuotes }) => {
+const QuoteWrapper = ({ allQuotes, navigation }) => {
   const [image, setImage] = React.useState(null);
+  const route = useRoute();
+  console.log("route", route);
+  const carouselData = allQuotes || [route.params?.item];
 
- 
   return (
     <View style={{ flex: 1, position: "relative" }}>
       <View
@@ -19,7 +22,7 @@ const QuoteWrapper = ({ allQuotes }) => {
         }}
       >
         <View style={{ flex: 1, width: "100%", height: "100%" }}>
-          {allQuotes && <CarouselScreen data={allQuotes} />}
+          {carouselData && <CarouselScreen data={carouselData} />}
         </View>
       </View>
     </View>

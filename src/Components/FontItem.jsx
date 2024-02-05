@@ -1,4 +1,5 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image } from "expo-image";
 
 const FontItem = ({ font, isPremium, onPress, isSelected }) => {
   return (
@@ -8,6 +9,7 @@ const FontItem = ({ font, isPremium, onPress, isSelected }) => {
       </Text>
       {isPremium && (
         <Image
+          cachePolicy={"disk"}
           style={styles.image}
           width={30}
           height={30}

@@ -9,6 +9,8 @@ export const quotesSlice = createSlice({
       quote: "System",
       author: "System",
     },
+    selectedBgImage: require("../../../assets/bgs/sky/2.jpg"),
+    quoteBgOpacity: 0.5,
   },
   reducers: {
     setAllQuotes: (state, action) => {
@@ -18,14 +20,24 @@ export const quotesSlice = createSlice({
       state.likedQuotes = action.payload.reverse();
     },
     setSelectedFonts: (state, action) => {
-      console.log('payload', action.payload)
       state.selectedFonts = action.payload;
+    },
+    setSelectedBgImage: (state, action) => {
+      state.selectedBgImage = action.payload;
+    },
+    setQuoteBgOpacity: (state, action) => {
+      state.quoteBgOpacity = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setAllQuotes, setLikedQuotes, setSelectedFonts } =
-  quotesSlice.actions;
+export const {
+  setAllQuotes,
+  setLikedQuotes,
+  setSelectedFonts,
+  setSelectedBgImage,
+  setQuoteBgOpacity,
+} = quotesSlice.actions;
 
 export default quotesSlice.reducer;

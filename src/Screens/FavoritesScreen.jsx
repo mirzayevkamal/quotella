@@ -5,7 +5,7 @@ import { IconButton, Text } from "react-native-paper";
 import BottomSheet from "@devvie/bottom-sheet";
 import QuoteWrapper from "../Components/QuoteWrapper";
 import { useSelector } from "react-redux";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const FavoritesScreen = () => {
@@ -14,6 +14,7 @@ const FavoritesScreen = () => {
   const sheetRef = useRef(null);
   const isFocused = useIsFocused();
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (!isFocused) {
@@ -44,9 +45,7 @@ const FavoritesScreen = () => {
               item={item}
               onPress={() => {
                 setSelectedItem(item);
-                setTimeout(() => {
-                  sheetRef.current?.open();
-                }, 200);
+                navigation.navigate("Quote", { item });
               }}
             />
           )}

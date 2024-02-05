@@ -58,13 +58,6 @@ export const saveImage = async (ref) => {
     try {
       await MediaLibrary.saveToLibraryAsync(imageURI);
       //Delete image from storage
-      await FileSystem.deleteAsync(imageURI)
-        .finally(() => {
-          console.log("Image successfully deleted");
-        })
-        .catch((error) => {
-          console.log("image delete error", error);
-        });
       return true;
     } catch {
       return false;

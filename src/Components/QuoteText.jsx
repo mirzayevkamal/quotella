@@ -11,10 +11,11 @@ const QuoteText = ({ quote, author }) => {
           color: "#fff",
           justifyContent: "center",
           alignItems: "center",
-          fontSize: 27,
+          fontSize: 23,
           padding: 20,
           lineHeight: 32,
           fontFamily: selectedFonts.quote,
+          letterSpacing: 0.2,
         }}
       >
         “{quote}”
@@ -23,7 +24,7 @@ const QuoteText = ({ quote, author }) => {
         style={{
           textAlign: "center",
           color: "#fff",
-          fontSize: 17,
+          fontSize: 14,
           fontWeight: "500",
           fontStyle: "italic",
           fontFamily: selectedFonts.author,

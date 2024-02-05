@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import Animated, { SlideInDown } from "react-native-reanimated";
-import { Dimensions } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
+import { Dimensions, View } from "react-native";
 import QuoteText from "./QuoteText";
 import { useSelector, useDispatch } from "react-redux";
 import { setLikedQuotes } from "../store/slices/quotesSlice";
@@ -16,7 +16,6 @@ const { width } = Dimensions.get("window");
 const CarouselItem = ({ item, showActions }) => {
   const dispatch = useDispatch();
   const likedQuotes = useSelector((state) => state.quotes.likedQuotes);
-
   const handleGetLikedQuotes = async () => {
     const res = await getLikedQuotes();
     dispatch(setLikedQuotes(res));
@@ -34,8 +33,8 @@ const CarouselItem = ({ item, showActions }) => {
 
   return (
     <Animated.View
-      entering={SlideInDown}
-      exiting={SlideInDown}
+      entering={FadeInDown}
+      exiting={FadeInDown}
       style={{
         flex: 1,
         justifyContent: "center",
@@ -46,12 +45,11 @@ const CarouselItem = ({ item, showActions }) => {
     >
       <QuoteText quote={item.quote} author={item.by} />
       {showActions.actions && (
-        <Animated.View
-          entering={SlideInDown}
+        <View
           style={{
             width: "100%",
             position: "absolute",
-            bottom: 10,
+            bottom: 35,
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "row",
@@ -76,9 +74,9 @@ const CarouselItem = ({ item, showActions }) => {
               }
             }}
             mode="contained"
-            containerColor={"#292626"}
+            containerColor={"rgba(0, 0, 0, 0.1)"}
           />
-        </Animated.View>
+        </View>
       )}
     </Animated.View>
   );

@@ -27,6 +27,7 @@ const settingsMenu = [
     title: "Backgrounds",
     icon: <Ionicons name="image-outline" size={24} color="#fff" />,
     onPress: () => {},
+    link: "Backgrounds",
   },
   {
     id: "3",

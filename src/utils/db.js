@@ -225,7 +225,7 @@ const getQuotesFromDb = async () => {
   return new Promise((resolve) => {
     dibi.transaction((tx) => {
       tx.executeSql(
-        "select * from allquotes WHERE LENGTH(quote) < 350 ORDER BY RANDOM() limit 10",
+        "select * from allquotes WHERE LENGTH(quote) < 300 ORDER BY RANDOM() limit 10",
         [],
         (_, { rows: { _array } }) => {
           resolve(_array);

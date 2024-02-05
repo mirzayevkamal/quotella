@@ -1,43 +1,33 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import {
   View,
-  Text,
   StyleSheet,
-  Dimensions,
-  FlatList,
-  StatusBar,
-  Image,
   ImageBackground,
   Platform,
+  FlatList,
 } from "react-native";
 import CarouselItem from "./CarouselItem";
-import Animated, { SlideInDown } from "react-native-reanimated";
-import { FAB } from "react-native-paper";
+import { IconButton } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
-import { useIsFocused } from "@react-navigation/native";
 import { showSnackbar } from "../store/slices/snackbarSlice";
 import { openShareDialogAsync, saveImage } from "../utils/share";
 import { getQuotesFromDb } from "../utils/db";
-import { setAllQuotes, setSelectedFonts } from "../store/slices/quotesSlice";
+import {
+  setAllQuotes,
+  setSelectedFonts,
+  setSelectedBgImage,
+} from "../store/slices/quotesSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Image } from "expo-image";
 
-const CarouselScreen = ({ data, activeItem }) => {
+const CarouselScreen = ({ data }) => {
   const quoteRef = React.useRef(null);
   const dispatch = useDispatch();
-
-  const allQuotes = useSelector((state) => state.quotes.allQuotes);
-
-  const [state, setState] = React.useState({ open: false });
-  const { open } = state;
-
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    if (!isFocused) {
-      setState({ open: false });
-    }
-  }, [isFocused]);
-  const onStateChange = ({ open }) => setState({ open });
+  const insets = useSafeAreaInsets();
+  const { allQuotes, selectedBgImage, quoteBgOpacity } = useSelector(
+    (state) => state.quotes
+  );
 
   const [showActions, setShowActions] = React.useState({
     logo: false,
@@ -56,8 +46,21 @@ const CarouselScreen = ({ data, activeItem }) => {
     }
   };
 
+  const getSelectedBgImage = async () => {
+    try {
+      const value = await AsyncStorage.getItem("selectedBgImage");
+      if (value !== null) {
+        dispatch(setSelectedBgImage(JSON.parse(value)));
+      }
+    } catch (e) {
+      // error reading value
+      console.log("error getting saved font");
+    }
+  };
+
   useEffect(() => {
     getSelectedFonts();
+    getSelectedBgImage();
   }, []);
 
   const showSuccessSnackbar = () => {
@@ -144,7 +147,7 @@ const CarouselScreen = ({ data, activeItem }) => {
   };
 
   return (
-    <Animated.View ref={quoteRef} style={styles.container}>
+    <View ref={quoteRef} style={styles.container}>
       <View
         style={{
           position: "absolute",
@@ -152,7 +155,7 @@ const CarouselScreen = ({ data, activeItem }) => {
           bottom: 0,
           left: 0,
           right: 0,
-          backgroundColor: "#000",
+          backgroundColor: "blue",
         }}
       />
 
@@ -163,14 +166,15 @@ const CarouselScreen = ({ data, activeItem }) => {
           height: 80,
           zIndex: 999,
           position: "absolute",
-          top: 5,
+          top: insets.top,
           opacity: showActions.logo ? 0.5 : 0,
         }}
         width={130}
         height={40}
         source={require("../../assets/logo-white.png")}
       />
-      <ImageBackground
+      <Image
+        cachePolicy={"disk"}
         style={{
           flex: 1,
           position: "absolute",
@@ -178,13 +182,14 @@ const CarouselScreen = ({ data, activeItem }) => {
           bottom: 0,
           left: 0,
           right: 0,
-          opacity: 0.4,
+          opacity: quoteBgOpacity,
         }}
-        source={require("../../assets/bgs/bg-2.jpg")}
+        source={selectedBgImage}
       />
-      <Animated.FlatList
+      <FlatList
         initialNumToRender={10}
         maxToRenderPerBatch={10}
+        showsHorizontalScrollIndicator={false}
         onEndReached={() => {
           if (data.length > 1) {
             getDbData();
@@ -202,54 +207,24 @@ const CarouselScreen = ({ data, activeItem }) => {
         pagingEnabled
       />
       {showActions.actions && (
-        <>
-          <FAB.Group
-            open={open}
-            visible
-            style={{
-              zIndex: 9999,
-            }}
-            icon={open ? "content-save-move" : "content-save-move-outline"}
-            color="#fff"
-            fabStyle={{
-              width: 37,
-              height: 37,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#292626",
-              position: Platform.OS === "ios" ? "absolute" : "relative",
-              bottom: -35,
-              borderRadius: 100,
-              right: 9,
-            }}
-            backdropColor="rgba(0,0,0,0.5)"
-            actions={[
-              {
-                icon: "download",
-                label: "Download",
-                onPress: () => downloadQuote(),
-                style: {
-                  backgroundColor: "#292626",
-                },
-                color: "#fff",
-                labelTextColor: "#fff",
-              },
-              {
-                icon: "share",
-                label: "Share",
-                onPress: () => handleShare(),
-                style: {
-                  backgroundColor: "#292626",
-                },
-                color: "#fff",
-                labelTextColor: "#fff",
-              },
-            ]}
-            onStateChange={onStateChange}
+        <View style={[styles.actions, { top: insets.top }]}>
+          <IconButton
+            icon="download"
+            iconColor="#fff"
+            mode="contained"
+            containerColor="rgba(0, 0, 0, .05)"
+            onPress={downloadQuote}
           />
-        </>
+          <IconButton
+            icon="share"
+            iconColor="#fff"
+            mode="contained"
+            containerColor="rgba(0, 0, 0, .05)"
+            onPress={handleShare}
+          />
+        </View>
       )}
-    </Animated.View>
+    </View>
   );
 };
 
@@ -262,6 +237,11 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     height: 44,
+  },
+  actions: {
+    position: "absolute",
+    right: 10,
+    flexDirection: "row",
   },
 });
 

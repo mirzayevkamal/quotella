@@ -1,3 +1,6 @@
+export const blurhash =
+  "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
+
 export const Categories = [
   {
     id: 1,
@@ -68,7 +71,7 @@ export const Categories = [
   {
     id: 12,
     image: require("../../assets/categories/12.png"),
-    name: "Widsom",
+    name: "Wisdom",
     color: "#305E62",
   },
   {
@@ -138,3 +141,420 @@ export const FontsList = [
   { id: 22, isPremium: true, name: "PhilosopherBold" },
   { id: 23, isPremium: true, name: "PhilosopherItalic" },
 ];
+
+export const BackgroundList = [
+  {
+    id: "1",
+    name: "Colors",
+    image: require("../../assets/bgs/bg-1.jpg"),
+  },
+  {
+    id: "2",
+    name: "Nature",
+    image: require("../../assets/bgs/nature/7.jpg"),
+  },
+  {
+    id: "3",
+    name: "Sky",
+    image: require("../../assets/bgs/sky/5.jpg"),
+  },
+  {
+    id: "4",
+    name: "Abstract",
+    image: require("../../assets/bgs/abstract/14.jpg"),
+  },
+  {
+    id: "5",
+    name: "Gradients",
+    image: require("../../assets/bgs/gradient/13.jpg"),
+  },
+  {
+    id: "6",
+    name: "Frames",
+    image: require("../../assets/bgs/frames/7.jpg"),
+  },
+  {
+    id: "7",
+    name: "Love",
+    image: require("../../assets/bgs/love/3.jpg"),
+  },
+];
+
+export const NatureImages = [
+  {
+    id: "1",
+    image: require("../../assets/bgs/nature/1.jpg"),
+  },
+  {
+    id: "2",
+    image: require("../../assets/bgs/nature/2.jpg"),
+  },
+  {
+    id: "3",
+    image: require("../../assets/bgs/nature/3.jpg"),
+  },
+  {
+    id: "4",
+    image: require("../../assets/bgs/nature/4.jpg"),
+  },
+  {
+    id: "5",
+    image: require("../../assets/bgs/nature/5.jpg"),
+  },
+  {
+    id: "6",
+    image: require("../../assets/bgs/nature/6.jpg"),
+  },
+  {
+    id: "7",
+    image: require("../../assets/bgs/nature/7.jpg"),
+  },
+  {
+    id: "8",
+    image: require("../../assets/bgs/nature/8.jpg"),
+  },
+  {
+    id: "9",
+    image: require("../../assets/bgs/nature/9.jpg"),
+  },
+  {
+    id: "10",
+    image: require("../../assets/bgs/nature/10.jpg"),
+  },
+  {
+    id: "11",
+    image: require("../../assets/bgs/nature/11.jpg"),
+  },
+  {
+    id: "12",
+    image: require("../../assets/bgs/nature/12.jpg"),
+  },
+  {
+    id: "13",
+    image: require("../../assets/bgs/nature/13.jpg"),
+  },
+  {
+    id: "14",
+    image: require("../../assets/bgs/nature/14.jpg"),
+  },
+  {
+    id: "15",
+    image: require("../../assets/bgs/nature/15.jpg"),
+  },
+];
+
+export const SkyImages = [
+  {
+    id: "1",
+    image: require("../../assets/bgs/sky/1.jpg"),
+  },
+  {
+    id: "2",
+    image: require("../../assets/bgs/sky/2.jpg"),
+  },
+  {
+    id: "3",
+    image: require("../../assets/bgs/sky/3.jpg"),
+  },
+  {
+    id: "4",
+    image: require("../../assets/bgs/sky/4.jpg"),
+  },
+  {
+    id: "5",
+    image: require("../../assets/bgs/sky/5.jpg"),
+  },
+  {
+    id: "6",
+    image: require("../../assets/bgs/sky/6.jpg"),
+  },
+  {
+    id: "7",
+    image: require("../../assets/bgs/sky/7.jpg"),
+  },
+  {
+    id: "8",
+    image: require("../../assets/bgs/sky/8.jpg"),
+  },
+  {
+    id: "9",
+    image: require("../../assets/bgs/sky/9.jpg"),
+  },
+  {
+    id: "10",
+    image: require("../../assets/bgs/sky/10.jpg"),
+  },
+  {
+    id: "11",
+    image: require("../../assets/bgs/sky/11.jpg"),
+  },
+  {
+    id: "12",
+    image: require("../../assets/bgs/sky/12.jpg"),
+  },
+  {
+    id: "13",
+    image: require("../../assets/bgs/sky/13.jpg"),
+  },
+  {
+    id: "14",
+    image: require("../../assets/bgs/sky/14.jpg"),
+  },
+  {
+    id: "15",
+    image: require("../../assets/bgs/sky/15.jpg"),
+  },
+];
+
+export const AbstractImages = [
+  {
+    id: "1",
+    image: require("../../assets/bgs/abstract/1.jpg"),
+  },
+  {
+    id: "2",
+    image: require("../../assets/bgs/abstract/2.jpg"),
+  },
+  {
+    id: "3",
+    image: require("../../assets/bgs/abstract/3.jpg"),
+  },
+  {
+    id: "4",
+    image: require("../../assets/bgs/abstract/4.jpg"),
+  },
+  {
+    id: "5",
+    image: require("../../assets/bgs/abstract/5.jpg"),
+  },
+  {
+    id: "6",
+    image: require("../../assets/bgs/abstract/6.jpg"),
+  },
+  {
+    id: "7",
+    image: require("../../assets/bgs/abstract/7.jpg"),
+  },
+  {
+    id: "8",
+    image: require("../../assets/bgs/abstract/8.jpg"),
+  },
+  {
+    id: "9",
+    image: require("../../assets/bgs/abstract/9.jpg"),
+  },
+  {
+    id: "10",
+    image: require("../../assets/bgs/abstract/10.jpg"),
+  },
+  {
+    id: "11",
+    image: require("../../assets/bgs/abstract/11.jpg"),
+  },
+  {
+    id: "12",
+    image: require("../../assets/bgs/abstract/12.jpg"),
+  },
+  {
+    id: "13",
+    image: require("../../assets/bgs/abstract/13.jpg"),
+  },
+  {
+    id: "14",
+    image: require("../../assets/bgs/abstract/14.jpg"),
+  },
+  {
+    id: "15",
+    image: require("../../assets/bgs/abstract/15.jpg"),
+  },
+];
+
+export const FrameImages = [
+  {
+    id: "1",
+    image: require("../../assets/bgs/frames/1.jpg"),
+  },
+  {
+    id: "2",
+    image: require("../../assets/bgs/frames/2.jpg"),
+  },
+  {
+    id: "3",
+    image: require("../../assets/bgs/frames/3.jpg"),
+  },
+  {
+    id: "4",
+    image: require("../../assets/bgs/frames/4.jpg"),
+  },
+  {
+    id: "5",
+    image: require("../../assets/bgs/frames/5.jpg"),
+  },
+  {
+    id: "6",
+    image: require("../../assets/bgs/frames/6.jpg"),
+  },
+  {
+    id: "7",
+    image: require("../../assets/bgs/frames/7.jpg"),
+  },
+  {
+    id: "8",
+    image: require("../../assets/bgs/frames/8.jpg"),
+  },
+  {
+    id: "9",
+    image: require("../../assets/bgs/frames/9.jpg"),
+  },
+  {
+    id: "10",
+    image: require("../../assets/bgs/frames/10.jpg"),
+  },
+  {
+    id: "11",
+    image: require("../../assets/bgs/frames/11.jpg"),
+  },
+  {
+    id: "12",
+    image: require("../../assets/bgs/frames/12.jpg"),
+  },
+  {
+    id: "13",
+    image: require("../../assets/bgs/frames/13.jpg"),
+  },
+  {
+    id: "14",
+    image: require("../../assets/bgs/frames/14.jpg"),
+  },
+  {
+    id: "15",
+    image: require("../../assets/bgs/frames/15.jpg"),
+  },
+];
+
+export const GradientImages = [
+  {
+    id: "1",
+    image: require("../../assets/bgs/gradient/1.jpg"),
+  },
+  {
+    id: "2",
+    image: require("../../assets/bgs/gradient/2.jpg"),
+  },
+  {
+    id: "3",
+    image: require("../../assets/bgs/gradient/3.jpg"),
+  },
+  {
+    id: "4",
+    image: require("../../assets/bgs/gradient/4.jpg"),
+  },
+  {
+    id: "5",
+    image: require("../../assets/bgs/gradient/5.jpg"),
+  },
+  {
+    id: "6",
+    image: require("../../assets/bgs/gradient/6.jpg"),
+  },
+  {
+    id: "7",
+    image: require("../../assets/bgs/gradient/7.jpg"),
+  },
+  {
+    id: "8",
+    image: require("../../assets/bgs/gradient/8.jpg"),
+  },
+  {
+    id: "9",
+    image: require("../../assets/bgs/gradient/9.jpg"),
+  },
+  {
+    id: "10",
+    image: require("../../assets/bgs/gradient/10.jpg"),
+  },
+  {
+    id: "11",
+    image: require("../../assets/bgs/gradient/11.jpg"),
+  },
+  {
+    id: "12",
+    image: require("../../assets/bgs/gradient/12.jpg"),
+  },
+  {
+    id: "13",
+    image: require("../../assets/bgs/gradient/13.jpg"),
+  },
+  {
+    id: "14",
+    image: require("../../assets/bgs/gradient/14.jpg"),
+  },
+  {
+    id: "15",
+    image: require("../../assets/bgs/gradient/15.jpg"),
+  },
+];
+
+export const LoveImages = [
+  {
+    id: "1",
+    image: require("../../assets/bgs/love/1.jpg"),
+  },
+  {
+    id: "2",
+    image: require("../../assets/bgs/love/2.jpg"),
+  },
+  {
+    id: "3",
+    image: require("../../assets/bgs/love/3.jpg"),
+  },
+  {
+    id: "4",
+    image: require("../../assets/bgs/love/4.jpg"),
+  },
+  {
+    id: "5",
+    image: require("../../assets/bgs/love/5.jpg"),
+  },
+  {
+    id: "6",
+    image: require("../../assets/bgs/love/6.jpg"),
+  },
+  {
+    id: "7",
+    image: require("../../assets/bgs/love/7.jpg"),
+  },
+  {
+    id: "8",
+    image: require("../../assets/bgs/love/8.jpg"),
+  },
+  {
+    id: "9",
+    image: require("../../assets/bgs/love/9.jpg"),
+  },
+  {
+    id: "10",
+    image: require("../../assets/bgs/love/10.jpg"),
+  },
+  {
+    id: "11",
+    image: require("../../assets/bgs/love/11.jpg"),
+  },
+  {
+    id: "12",
+    image: require("../../assets/bgs/love/12.jpg"),
+  },
+  {
+    id: "13",
+    image: require("../../assets/bgs/love/13.jpg"),
+  },
+  {
+    id: "14",
+    image: require("../../assets/bgs/love/14.jpg"),
+  },
+  {
+    id: "15",
+    image: require("../../assets/bgs/love/15.jpg"),
+  },
+];
+
