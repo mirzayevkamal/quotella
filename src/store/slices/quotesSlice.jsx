@@ -11,6 +11,7 @@ export const quotesSlice = createSlice({
     },
     selectedBgImage: require("../../../assets/bgs/sky/2.jpg"),
     quoteBgOpacity: 0.5,
+    quoteBgColor: "#000000",
   },
   reducers: {
     setAllQuotes: (state, action) => {
@@ -28,6 +29,9 @@ export const quotesSlice = createSlice({
     setQuoteBgOpacity: (state, action) => {
       state.quoteBgOpacity = action.payload;
     },
+    setQuoteBgColor: (state, action) => {
+      state.quoteBgColor = action.payload;
+    },
   },
 });
 
@@ -38,6 +42,7 @@ export const {
   setSelectedFonts,
   setSelectedBgImage,
   setQuoteBgOpacity,
+  setQuoteBgColor,
 } = quotesSlice.actions;
 
 export default quotesSlice.reducer;

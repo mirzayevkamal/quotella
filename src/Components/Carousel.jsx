@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  ImageBackground,
-  Platform,
-  FlatList,
-} from "react-native";
+import { View, StyleSheet, Platform, FlatList } from "react-native";
 import CarouselItem from "./CarouselItem";
 import { IconButton } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
@@ -25,9 +19,8 @@ const CarouselScreen = ({ data }) => {
   const quoteRef = React.useRef(null);
   const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
-  const { allQuotes, selectedBgImage, quoteBgOpacity } = useSelector(
-    (state) => state.quotes
-  );
+  const { allQuotes, selectedBgImage, quoteBgOpacity, quoteBgColor } =
+    useSelector((state) => state.quotes);
 
   const [showActions, setShowActions] = React.useState({
     logo: false,
@@ -155,7 +148,7 @@ const CarouselScreen = ({ data }) => {
           bottom: 0,
           left: 0,
           right: 0,
-          backgroundColor: "blue",
+          backgroundColor: quoteBgColor,
         }}
       />
 

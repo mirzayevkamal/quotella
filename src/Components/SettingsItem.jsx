@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 15,
-    backgroundColor: "#303030",
+    backgroundColor: "#151515",
     margin: 1,
   },
   wrapper: { flexDirection: "row", alignItems: "center" },

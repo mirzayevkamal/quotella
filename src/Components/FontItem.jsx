@@ -16,7 +16,6 @@ const FontItem = ({ font, isPremium, onPress, isSelected }) => {
           source={require("../../assets/premium-badge.png")}
         />
       )}
-      <View style={styles.premium}></View>
     </Pressable>
   );
 };
@@ -28,6 +27,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 5,
     flex: 1,
+    backgroundColor: "#151515",
   },
   text: {
     color: "#000",

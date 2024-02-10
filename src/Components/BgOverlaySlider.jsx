@@ -13,11 +13,11 @@ const BgOverlaySlider = () => {
   };
   return (
     <Slider
-      style={{ width: "auto", height: 40 }}
+      style={{ width: "100%", height: 40 }}
       minimumValue={0}
       maximumValue={1}
       minimumTrackTintColor="#FFFFFF"
-      maximumTrackTintColor="#303030"
+      maximumTrackTintColor="#000"
       value={quoteBgOpacity}
       onValueChange={handleValueChange}
       step={0.1}

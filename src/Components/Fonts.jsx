@@ -41,18 +41,17 @@ const FontsCarousel = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <View style={{ flex: 1, margin: 2 }}>
+      <View style={styles.sectionWrapper}>
+        <View style={styles.selectedFontWrapper}>
           <Text
             variant="titleSmall"
             style={{
               color: "#606060",
-              marginTop: 10,
             }}
           >
             Quote's font
           </Text>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={styles.fontNameWrapper}>
             <EvilIcons
               name="check"
               size={24}
@@ -71,17 +70,16 @@ const FontsCarousel = () => {
             </Text>
           </View>
         </View>
-        <View style={{ flex: 1, margin: 2, alignItems: "center" }}>
+        <View style={styles.selectedFontWrapper}>
           <Text
             variant="titleSmall"
             style={{
               color: "#606060",
-              marginTop: 10,
             }}
           >
             Author's font
           </Text>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={styles.fontNameWrapper}>
             <EvilIcons
               name="check"
               size={24}
@@ -105,20 +103,20 @@ const FontsCarousel = () => {
       <View
         style={{
           marginVertical: 20,
+          marginHorizontal: 10,
           flexDirection: "row",
+          alignItems: "center",
         }}
       >
-        <View>
-          <Text
-            variant="titleLarge"
-            style={{
-              color: "#fff",
-            }}
-          >
-            Available fonts
-          </Text>
-        </View>
-        <View style={{ flex: 1, marginLeft: 40, marginRight: 10 }}>
+        <Text
+          variant="titleMedium"
+          style={{
+            color: "#fff",
+          }}
+        >
+          Available fonts
+        </Text>
+        <View style={{ flex: 1, marginLeft: 50 }}>
           <SegmentedButtons
             value={value}
             density="medium"
@@ -151,6 +149,7 @@ const FontsCarousel = () => {
         </View>
       </View>
       <FlatList
+        style={{ height: 500 }}
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         numColumns={2}
@@ -175,10 +174,24 @@ const FontsCarousel = () => {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 5,
-    width: "100%",
-    height: "100%",
-    paddingBottom: 20,
+    marginHorizontal: 10,
+    marginTop: 10,
+  },
+  sectionWrapper: {
+    padding: 10,
+    backgroundColor: "#151515",
+    borderRadius: 20,
+    marginBottom: 10,
+    flexDirection: "row",
+  },
+  selectedFontWrapper: {
+    flex: 1,
+    margin: 2,
+    alignItems: "flex-start",
+  },
+  fontNameWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

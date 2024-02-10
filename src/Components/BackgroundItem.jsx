@@ -1,15 +1,16 @@
 import { useNavigation } from "@react-navigation/native";
 import { Image } from "expo-image";
+import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const BackgroundItem = ({ item }) => {
   const navigation = useNavigation();
 
-  console.log('item', item)
+  console.log("item", item);
 
   return (
     <Pressable
-      onPressIn={() =>
+      onPress={() =>
         navigation.navigate("BackgroundImagesScreen", { name: item.name })
       }
       style={styles.container}
@@ -61,4 +62,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BackgroundItem;
+export default React.memo(BackgroundItem);

@@ -216,7 +216,7 @@ const removeLikedQuote = (quote) => {
 };
 
 const getQuotesFromDb = async () => {
-  console.log("gettling quotes from db");
+  console.log("getting quotes from db");
   const dibi = await openDatabaseLocal(
     "https://github.com/mirzayevkamal/quotella/raw/main/assets/quotes/allquotes.db",
     "allquotes.db"
@@ -235,6 +235,19 @@ const getQuotesFromDb = async () => {
   });
 };
 
+const removeAllFavorites = () => {
+  const likedQuotesDb = SQLite.openDatabase("liked_quotes.db");
+
+  return new Promise((resolve) => {
+    likedQuotesDb.transaction((tx) => {
+      tx.executeSql("DELETE FROM liked_quotes", [], () => {
+        console.log("All items removed successfully");
+        resolve();
+      });
+    });
+  });
+};
+
 export {
   createTable,
   insertDataFromJson,
@@ -243,4 +256,5 @@ export {
   getLikedQuotes,
   removeLikedQuote,
   getQuotesFromDb,
+  removeAllFavorites,
 };

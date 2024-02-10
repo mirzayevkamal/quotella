@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { FlatList, SafeAreaView, View } from "react-native";
+import { FlatList, Pressable, SafeAreaView, View } from "react-native";
 import QuoteItem from "../Components/QuoteItem";
 import { IconButton, Text } from "react-native-paper";
 import BottomSheet from "@devvie/bottom-sheet";
 import QuoteWrapper from "../Components/QuoteWrapper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { getLikedQuotes, removeAllFavorites } from "../utils/db";
+import { setLikedQuotes } from "../store/slices/quotesSlice";
 
 const FavoritesScreen = () => {
   const likedQuotes = useSelector((state) => state.quotes.likedQuotes);
@@ -15,6 +18,7 @@ const FavoritesScreen = () => {
   const isFocused = useIsFocused();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isFocused) {
@@ -22,20 +26,62 @@ const FavoritesScreen = () => {
     }
   }, [isFocused]);
 
+  const handleGetLikedQuotes = async () => {
+    const res = await getLikedQuotes();
+    dispatch(setLikedQuotes(res));
+  };
+
+  const handleRemoveAllFavorites = async () => {
+    try {
+      await removeAllFavorites();
+      await handleGetLikedQuotes();
+    } catch (error) {
+      console.log("error when removing all favorites", error);
+    }
+  };
+
   return (
     <>
       <SafeAreaView style={{ flex: 1, paddingTop: insets.top }}>
-        <Text
-          variant="headlineLarge"
+        <View
           style={{
-            color: "#fff",
-            paddingVertical: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
             paddingHorizontal: 5,
-            fontFamily: "Cabin",
           }}
         >
-          Favorites
-        </Text>
+          <Text
+            variant="headlineLarge"
+            style={{
+              color: "#fff",
+              paddingVertical: 10,
+              paddingHorizontal: 5,
+              fontFamily: "Cabin",
+            }}
+          >
+            Favorites
+          </Text>
+          {likedQuotes.length ? (
+            <Pressable
+              onPress={handleRemoveAllFavorites}
+              style={{ flexDirection: "row", alignItems: "center" }}
+            >
+              <Ionicons name="heart-dislike" size={24} color="red" />
+              <Text
+                variant="titleSmall"
+                style={{
+                  color: "#fff",
+                  paddingVertical: 10,
+                  paddingHorizontal: 5,
+                  fontFamily: "Cabin",
+                }}
+              >
+                Remove all
+              </Text>
+            </Pressable>
+          ) : null}
+        </View>
         <FlatList
           data={likedQuotes}
           numColumns={2}

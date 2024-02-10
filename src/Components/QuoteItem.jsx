@@ -1,7 +1,10 @@
+import { Image } from "expo-image";
 import { Pressable, Text, View } from "react-native";
+import { useSelector } from "react-redux";
 
 const QuoteItem = ({ item, onPress }) => {
   const { by, quote } = item;
+  const { selectedBgImage } = useSelector((state) => state.quotes);
 
   return (
     <Pressable onPress={onPress} style={{ flex: 1 }}>
@@ -10,7 +13,7 @@ const QuoteItem = ({ item, onPress }) => {
           margin: 3,
           flex: 1,
           borderRadius: 10,
-          backgroundColor: "#292626",
+          backgroundColor: "#000",
           padding: 15,
           justifyContent: "center",
           alignItems: "flex-start",
@@ -39,6 +42,20 @@ const QuoteItem = ({ item, onPress }) => {
           {by}
         </Text>
       </View>
+      <Image
+        source={selectedBgImage}
+        style={{
+          position: "absolute",
+          opacity: 0.4,
+          borderRadius: 10,
+          top: 2,
+          left: 2,
+          width: "97%",
+          height: "96%",
+          zIndex: 1,
+        }}
+        contentFit="cover"
+      />
     </Pressable>
   );
 };
